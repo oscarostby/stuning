@@ -1,0 +1,64 @@
+{
+  "_info": "Rediger feltene under og kjør 'node build.js' for å oppdatere hele nettsiden. Felter i [klammer] vises gult på siden til de er fylt ut.",
+
+  "firma": {
+    "navn": "[Firmanavn AS]",
+    "orgnr": "[000 000 000]",
+    "mva": true,
+    "adresse": "[Gateadresse 1]",
+    "postnr": "[0000]",
+    "sted": "[Sted]",
+    "epost": "post@stuning.no",
+    "telefon": "[+47 000 00 000]",
+    "apningstider": "Kundeservice svarer på e-post hverdager 09–16",
+    "returadresse": "[Returadresse, postnr og sted]"
+  },
+
+  "butikk": {
+    "navn": "S Tuning",
+    "domene": "stuning.no",
+    "url": "https://stuning.no",
+    "leveringstid": "3–6 uker",
+    "returkostnad": "[ca. 300–900 kr avhengig av størrelse]",
+    "betaling": ["Visa", "Mastercard", "Vipps", "Klarna"]
+  },
+
+  "partner": {
+    "_info": "Partnerannonse som vises på forsiden, på produkter som krever tuning, og i bunnteksten. Sett \"vis\": false for å skjule.",
+    "vis": true,
+    "navn": "SSSTuning",
+    "url": "https://ssstuning.no",
+    "telefon": "+47 90 40 81 74",
+    "epost": "post@ssstuning.no",
+    "omrade": "Drammen, Asker, Bærum og Oslo",
+    "logo": "/img/partner/sss-logo.webp",
+    "bilde": "/img/partner/sss-octavia-record-car.webp"
+  },
+
+  "pris": {
+    "_info": "Innkjøpskost = (leverandørpris + Alibaba-frakt i USD) × kurs × (1 + tollOgFortolling) + fastKostnadPerOrdre. Utsalgspris = innkjøpskost × påslag × (1 + mva) ÷ (1 − betalingsgebyr), avrundet til ...99/...9",
+    "usdTilNok": 11.0,
+    "tollOgFortolling": 0.08,
+    "fastKostnadPerOrdre": [
+      { "under": 1000, "kr": 75 },
+      { "under": 3000, "kr": 150 },
+      { "under": 6000, "kr": 225 },
+      { "kr": 300 }
+    ],
+    "paslag": 1.5,
+    "mva": 0.25,
+    "betalingsgebyr": 0.03,
+    "standardFraktUsd": {
+      "catback": 180,
+      "downpipe": 90,
+      "headers": 120,
+      "mellomror": 90,
+      "lyddempere": 110,
+      "endror": 25,
+      "ventiler": 45,
+      "katalysatorer": 70,
+      "flexror": 30,
+      "annet": 80
+    }
+  }
+}

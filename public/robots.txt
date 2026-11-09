@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /handlekurv/
+Sitemap: https://stuning.no/sitemap.xml
