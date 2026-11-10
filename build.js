@@ -53,7 +53,8 @@ for (const raw of list.all) {
 
   const rng = N.parseUsd(raw.pr);
   if (!rng) continue;
-  const moq = Math.max(1, parseInt(String(raw.moq || '1'), 10) || 1);
+  // Skyley sender én enhet ved dropshipping, så minstekvantumet på Alibaba (f.eks. «2 sets») gjelder ikke oss.
+  const moq = 1;
   const unitUsd = det && det.drop ? det.drop : rng.max;
   const fr = N.parseUsd(raw.fr);
   const freightUsd = fr ? fr.max : (cfg.pris.standardFraktUsd[type.cat] || 80);
