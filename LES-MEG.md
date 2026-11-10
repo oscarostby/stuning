@@ -40,7 +40,7 @@ Avrundes opp til ...99 (over 2000 kr) eller ...9.
 | `usdTilNok` | 11,0 | Dollarkurs (litt over dagens kurs som buffer) |
 | `tollOgFortolling` | 8 % | Toll og fortolling ved import |
 | `fastKostnadPerOrdre` | 75–300 kr | Fortollingsgebyr, håndtering og buffer for retur/reklamasjon. Trappetrinn etter varekost: under 1 000 kr → 75 kr, under 3 000 → 150, under 6 000 → 225, ellers 300 |
-| `paslag` | 1,5 | Fortjenesten din: 50 % på toppen av innkjøpskost |
+| `paslag` | 1,38–1,65 | Fortjenesten din, i trinn etter innkjøpskost: under 3 000 kr → +38 %, under 6 000 → +42 %, under 12 000 → +50 %, under 20 000 → +58 %, over → +65 %. Billige deler får lav margin så de selger, dyre anlegg tjener mer |
 | `mva` | 25 % | Merverdiavgift |
 | `betalingsgebyr` | 3 % | Gebyr til Klarna/Vipps/kortinnløser |
 

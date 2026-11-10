@@ -45,7 +45,13 @@
       { "under": 6000, "kr": 225 },
       { "kr": 300 }
     ],
-    "paslag": 1.5,
+    "paslag": [
+      { "under": 3000, "faktor": 1.38 },
+      { "under": 6000, "faktor": 1.42 },
+      { "under": 12000, "faktor": 1.50 },
+      { "under": 20000, "faktor": 1.58 },
+      { "faktor": 1.65 }
+    ],
     "mva": 0.25,
     "betalingsgebyr": 0.03,
     "standardFraktUsd": {
