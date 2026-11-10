@@ -68,5 +68,5 @@ node serve.js
 - [ ] Bekreft leveringstid med leverandøren og oppdater `leveringstid`
 - [ ] Avklar fortolling: siden lover at toll og mva er inkludert (kunden betaler ingenting ved levering)
 - [ ] Sett riktig returkostnad i `returkostnad`
-- [ ] Bytt tekstlogoen med ekte logo (`lib/layout.js`, se `wordmark`)
+- [x] Logo lagt inn (`public/assets/logo-light.png`, `logo-dark.png`, `logo-icon.png`)
 - [ ] Les gjennom `lib/content.js` (kundeservice, om oss, vilkår) og tilpass
