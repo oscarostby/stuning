@@ -139,102 +139,13 @@ const vehicleSelects = (idPrefix) => `
   <div><label class="lbl" for="${idPrefix}-model">Modell / chassis</label><select class="field" id="${idPrefix}-model" data-v-model disabled><option value="">Velg modell</option></select></div>`;
 
 // ---------- Front page ----------
-const top = (pred, n) => products.filter(pred).sort((a, b) => b.sold - a.sold || b.price - a.price).slice(0, n);
-const featured = (() => {
-  const out = []; const used = new Set();
-  const add = (arr) => { for (const p of arr) if (!used.has(p.id) && out.length < 8) { used.add(p.id); out.push(p); } };
-  add(top(p => p.cat === 'catback' && p.f.valved && p.make === 'BMW', 2));
-  add(top(p => p.cat === 'catback' && p.make === 'Porsche', 1));
-  add(top(p => p.cat === 'downpipe' && p.make === 'BMW', 1));
-  add(top(p => p.cat === 'catback' && p.make === 'Mercedes-Benz', 1));
-  add(top(p => p.cat === 'downpipe' && p.make === 'Audi', 1));
-  add(top(p => p.cat === 'headers', 1));
-  add(top(p => p.cat === 'catback' && p.make === 'Volkswagen', 1));
-  add(top(() => true, 8));
-  return out;
-})();
-const hero = products.find(p => /G80|G82/.test(p.title) && p.f.titanium && p.cat === 'catback') || top(p => p.f.titanium && p.cat === 'catback', 1)[0] || featured[0];
-const realMakes = makes.filter(([m]) => m !== 'Universal');
-
+const H = require('./lib/home');
 page({
   rel: 'index.html', canonical: '/', active: '',
-  description: `Eksosanlegg, downpipes, headers og endrør til BMW, Mercedes-Benz, Porsche, Audi og flere. ${fmt(products.length)} deler. Pris inkl. mva, frakt og toll.`,
-  ogImage: hero && hero.imgs[0] && hero.imgs[0].big,
-  extraHead: '<script src="/data/catalog.js" defer></script>',
-  body: `
-<div class="container">
-  <div class="home-top">
-    <form class="panel finder" action="/produkter/" data-finder>
-      <h1>Finn deler til bilen din</h1>
-      <p>Velg bilmerke og modell for å se deler som passer.</p>
-      ${vehicleSelects('f')}
-      <div><label class="lbl" for="f-cat">Kategori</label><select class="field" id="f-cat" name="kategori"><option value="">Alle kategorier</option>${cats.filter(c => c.key !== 'annet').map(c => `<option value="${c.key}">${esc(c.name)}</option>`).join('')}</select></div>
-      <input type="hidden" name="merke" data-v-make-out><input type="hidden" name="modell" data-v-model-out>
-      <button class="btn btn-block" type="submit">Vis deler</button>
-      <div class="finder-foot">Usikker på passform? <a class="link" href="/kundeservice/">Send oss registreringsnummeret</a>, så sjekker vi før du bestiller.</div>
-    </form>
-    ${hero ? `<a class="panel feature" href="/produkt/${hero.slug}/">
-      <div class="feature-text">
-        <span class="eyebrow">Utvalgt produkt</span>
-        <h2>${esc(hero.title)}</h2>
-        <p>${esc(hero.desc.benefits.slice(0, 2).join(' '))}</p>
-        <div class="price">${kr(hero.minPrice)}</div>
-        <span class="btn btn-dark" style="align-self:flex-start">Se produktet</span>
-      </div>
-      <div class="feature-img"><img src="${esc(hero.imgs[0].big)}" alt="${esc(hero.title)}"></div>
-    </a>` : ''}
-  </div>
-
-  <div class="panel facts">
-    <div class="fact"><strong>Frakt og toll er med i prisen</strong><span>Prisen du ser er prisen du betaler. Ingen gebyrer ved levering.</span></div>
-    <div class="fact"><strong>Levering ${esc(LEV)}</strong><span>Delene sendes fra produsentens lager med sporing.</span></div>
-    <div class="fact"><strong>Norsk avtalepart</strong><span>14 dagers angrerett og reklamasjon etter forbrukerkjøpsloven.</span></div>
-  </div>
-</div>
-
-<section class="section">
-  <div class="container">
-    <div class="section-head"><h2>Kategorier</h2><a class="link" href="/produkter/">Alle produkter</a></div>
-    <div class="cat-grid">
-      ${cats.filter(c => c.key !== 'annet').map(c => `<a class="cat-card" href="/produkter/?kategori=${c.key}">${c.sample ? `<img src="${esc(c.sample.imgs[0].thumb)}" alt="" loading="lazy">` : '<span></span>'}<div><h3>${esc(c.name)}</h3><span>${c.count} produkter</span></div></a>`).join('')}
-    </div>
-  </div>
-</section>
-
-<section class="section" style="padding-top:0">
-  <div class="container">
-    <div class="section-head"><h2>Bilmerker</h2></div>
-    <div class="make-row">
-      ${realMakes.slice(0, 16).map(([m, n]) => `<a class="make-btn" href="/produkter/?merke=${encodeURIComponent(m)}"><strong>${esc(m)}</strong><span>${n} deler</span></a>`).join('')}
-    </div>
-  </div>
-</section>
-
-<section class="section" style="padding-top:0">
-  <div class="container">
-    <div class="section-head"><h2>Populære produkter</h2><a class="link" href="/produkter/">Se alle ${fmt(products.length)} produkter</a></div>
-    <div class="grid">${featured.map(card).join('')}</div>
-  </div>
-</section>
-
-${cfg.partner && cfg.partner.vis ? `<section class="section" style="padding-top:0"><div class="container">${L.partnerBanner(cfg)}</div></section>` : ''}
-
-<section class="section" style="padding-top:0">
-  <div class="container">
-    <div class="panel prose" style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
-      <div>
-        <h2 style="margin-top:0">Om S Tuning</h2>
-        <p>Vi selger eksosanlegg, downpipes og headers i rustfritt stål og titan. Delene kjøpes inn fra produsent og sendes direkte til deg. Derfor kan vi tilby et stort utvalg uten å ha alt på eget lager.</p>
-        <p><a href="/om-oss/">Les mer om oss</a></p>
-      </div>
-      <div>
-        <h2 style="margin-top:0">Før du bestiller</h2>
-        <p>Sjekk modell, motor og årsmodell under «Passer til» på produktsiden. Noen deler, som downpipes uten katalysator, er ikke godkjent for bruk på offentlig vei. Det står tydelig på produktet.</p>
-        <p><a href="/frakt-og-retur/">Frakt, levering og retur</a></p>
-      </div>
-    </div>
-  </div>
-</section>`,
+  description: `Eksosanlegg, downpipes, headers og endrør i rustfritt stål og titan til BMW, Mercedes-Benz, Porsche, Audi og flere. ${fmt(products.length)} deler. Pris inkl. frakt, toll og mva.`,
+  ogImage: H.HERO.img,
+  extraHead: '<script src="/data/catalog.js" defer></script><link rel="preload" as="image" href="' + H.HERO.img + '">',
+  body: H.homeBody({ products, cats, makes, vehicles, cfg }),
 });
 
 // ---------- Listing page ----------
